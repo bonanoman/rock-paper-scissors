@@ -11,13 +11,15 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let inputValid = false
+    let input = null
     while (inputValid == false) {
-        let input = prompt("type rock, paper, or scissors")
+        input = prompt("type rock, paper, or scissors").toLowerCase()
         if (typeof input != "string") continue
         if (input == "rock" || input == "paper" || input == "scissors") {
             inputValid = true
         }
     }
+    return input
 }
 
 let humanScore = 0
@@ -37,15 +39,18 @@ function playRound(/**@type {String} */ humanChoice, /**@type {String} */ comput
         result = "COMPUTER WON"
         computerScore++
     }
-    return result
+    console.log(result)
+    textBox.innerText = result
+    console.log(textBox.innerText)
 }
 
-for (let i = 0; i <= 4; i++) {
+for (let i = 0; i < 5; i++) {
     humanSelection = getHumanChoice();
     computerSelection = getComputerChoice();
 
-    textBox.innerText = playRound(humanSelection, computerSelection)
+    playRound(humanSelection, computerSelection)
+    confirm("Next game?");
 }
 
-let winner = (humanScore > computerScore) ? "HUMAN WONN" : "COMPUTER WON"
+let winner = (humanScore > computerScore) ? "HUMAN WON" : (computerScore > humanScore) ? "COMPUTER WON" : "TIE"
 textBox.innerText = "COMPUTER: " + computerScore + "\nHUMAN: " + humanScore + "\n" + winner;
